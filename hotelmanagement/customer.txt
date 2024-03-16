@@ -1,0 +1,11 @@
+Adding New Customer Details
+Phone No: 9588339752
+Name: Vivek
+Address: shanti Vihar
+No of Members: 2
+
+Adding New Customer Details
+Phone No: 9996795545
+Name: raman
+Address: shanti vihar
+No of Members: 3
