@@ -1,120 +1,96 @@
-#include "customerDetail.h"
 #include "choice.h"
+#include "customerDetail.h"
 
 #include<thread>
+#include<sqlite3.h>
 
+#include<map>
 #include<fstream>
 #include<iostream>
 using namespace std;
 
-class hotelmanage{
-    public:
-        int roomNo;
-        int totalRooms;
-        int bookedRooms;
-        int availableRooms;
-        int roomCharges;
+struct customerVariables {
+    long long int Phone_No;
+    string Name;
+    string Address;
+    int NoOfMembers;
+    string emailID;
 
-        hotelmanage(){
-            roomNo = 0;
-            totalRooms = 100;
-            bookedRooms = 0;
-            availableRooms = 100;
-            roomCharges = 10000;
-            choice();
-        }
-
-        choice c;
-        customerDetail customer;
-
-        void choice();
-        void roomDetails();
-        void checkdetails();
-        void customerDetails();
-
-        void registerRoom();
+    int roomNo;
+    int totalRooms;
+    int bookedRooms;
+    int availableRooms;
+    int roomCharges;
 };
 
-void hotelmanage ::choice()
-{
+class hotelmanage{
+    public:
+
+        map<string , customerVariables> customerData;
+        //map<int, string> roomToCustomer;
+
+        choice c;                       //object of choice header class of header file choice.h
+        customerDetail customHeader;    //object of customerDetail class of header file customerDetail.h
+        customerVariables customer;     //object of customerVariables structure
+
+        void choice();
+        void checkList();
+        void customerDetails();
+        void registerRoom();
+
+        bool isAlreadyExist(string);
+};
+
+void hotelmanage ::choice(){
     int choice = c.choose();
     if(choice == 1){
-        roomDetails();
+        registerRoom();
     }
     else if(choice == 2){
         customerDetails();
     }
     else if(choice == 3){
-        checkdetails();
-    }
-    else if(choice == 4){
-        registerRoom();
+        checkList();
     }
     else{
         cout << "Invalid Choice\n";
     }
 }
 
-void hotelmanage ::roomDetails()
-{
-    cout << "Room Details ... \n";
+void hotelmanage::customerDetails(){
 
-    int Room_No;
-    string Room_Type;
-    int Room_Charges;
-    int NoOfDays;
-    int Total_Charges;
-
-    cout << "Enter Room No: \n";
-    cin >> Room_No;
-
-    cout << "Enter Room Type: \n";
-    cin >> Room_Type;
-
-    cout << "Enter Room Charges: \n";
-    cin >> Room_Charges;
-
-    cout << "Enter No of Days: \n";
-    cin >> NoOfDays;
-
-    Total_Charges = Room_Charges * NoOfDays;
-    cout << "Total Charges: " << Total_Charges << endl;
-
-}
-
-void hotelmanage::customerDetails() {
     fstream file;
     file.open("customer.txt", ios::app);
-    //customerDetail customer;
 
-    long long int Phone_No;
-    string Name;
-    string Address;
-    int NoOfMembers;
+    if (file.is_open()) {
+        file << "\nAdding New Customer Details\n";
 
-    if (file.is_open()) { // Check if file opening succeeded
-        file << "Adding New Customer Details\n";
+        customer.Phone_No = customHeader.Phone_No();
+        file << "Phone No: " << customer.Phone_No << "\n";
 
-        Phone_No = customer.Phone_No();
-        file << "Phone No: " << Phone_No << "\n"; // Add newline character
+        customer.Name = customHeader.Name();
+        file << "Name: " << customer.Name << "\n";
 
-        Name = customer.Name();
-        file << "Name: " << Name << "\n"; // Add newline character
+        customer.Address = customHeader.Address();
+        file << "Address: " << customer.Address << "\n";
 
-        Address = customer.Address();
-        file << "Address: " << Address << "\n"; // Add newline character
+        customer.NoOfMembers = customHeader.NoOfMembers();
+        file << "No of Members: " << customer.NoOfMembers << "\n\n";
 
-        NoOfMembers = customer.NoOfMembers();
-        file << "No of Members: " << NoOfMembers << "\n\n"; // Add newline character
+        customer.emailID = customHeader.emailID();
+        bool alreadyExist =  isAlreadyExist(customer.emailID);
+        file << "Email ID: " << customer.emailID << "\n\n";
 
-        file.close(); // Close the file
+        customerData[customer.emailID] = customer;
+
+        file.close();
     } 
     else {
         cout << "File is not open";
     }
 }
 
-void hotelmanage ::checkdetails()
+void hotelmanage ::checkList()
 {
     fstream file;
     file.open("customer.txt", ios::in);
@@ -135,8 +111,12 @@ void hotelmanage ::registerRoom()
     fstream file;
     file.open("customer.txt", ios::app);
 
-    int Room_No;
-    int Room_Charges;
+    customer.roomNo = 0;
+    customer.totalRooms = 100;
+    customer.bookedRooms = 0;
+    customer.availableRooms = 100;
+    customer.roomCharges = 10000;
+
     int NoOfDays;
     int Total_Charges;
 
@@ -144,18 +124,18 @@ void hotelmanage ::registerRoom()
         file << "Registering New Room\n";
 
         cout << "Enter Room No: \n";
-        cin >> Room_No;
-        file << "Room No: " << Room_No << "\n";
+        cin >> customer.roomNo;
+        file << "Room No: " << customer.roomNo << "\n";
 
         cout << "Enter No of Days: \n";
         cin >> NoOfDays;
         file << "No of Days: " << NoOfDays << "\n";
 
-        Total_Charges = roomCharges * NoOfDays;
-        file << "Total Charges: " << Total_Charges << "\n\n";
+        Total_Charges = customer.roomCharges * NoOfDays;
+        file << "Total Charges: " << Total_Charges;
         cout << "Total Charges: " << Total_Charges << endl;
 
-        
+        customerDetails();
 
         file.close();
     }
@@ -163,6 +143,25 @@ void hotelmanage ::registerRoom()
         cout << "File is not open";
     }
 }
+
+bool isAlreadyExist(string emailID){
+    fstream file;
+    file.open("customer.txt", ios::in);
+
+    if(file.is_open()){
+        string line;
+        while(getline(file, line)){
+            if(line == emailID){
+                return true;
+            }
+        }
+    }
+    else{
+        cout << "File is not open";
+    }
+    return false;
+}
+
 
 int main(){
     hotelmanage h;

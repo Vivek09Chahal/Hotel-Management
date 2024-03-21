@@ -14,6 +14,7 @@ class customerDetail{
         string Name();
         string Address();
         int NoOfMembers();
+        string emailID();
 };
 
 long long int customerDetail ::Phone_No()
@@ -39,6 +40,14 @@ string customerDetail ::Address()
     cout << "Enter Address: \n";
     getline(cin, Address);
     return Address;
+}
+
+string customerDetail ::emailID()
+{
+    string emailID;
+    cout << "Enter Email ID: \n";
+    getline(cin, emailID);
+    return emailID;
 }
 
 int customerDetail ::NoOfMembers()

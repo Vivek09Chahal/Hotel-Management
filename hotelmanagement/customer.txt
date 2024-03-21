@@ -1,11 +1,19 @@
+Registering New Room
+Room No: 1
+No of Days: 2
+Total Charges: 20000
 Adding New Customer Details
 Phone No: 9588339752
 Name: Vivek
 Address: shanti Vihar
 No of Members: 2
 
+Registering New Room
+Room No: 2
+No of Days: 3
+Total Charges: 30000
 Adding New Customer Details
 Phone No: 9996795545
-Name: raman
-Address: shanti vihar
-No of Members: 3
+Name: Raman
+Address: Shanti Vihar
+No of Members: 1
