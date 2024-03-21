@@ -2,7 +2,6 @@
 #include "customerDetail.h"
 
 #include<thread>
-#include<sqlite3.h>
 
 #include<map>
 #include<fstream>
