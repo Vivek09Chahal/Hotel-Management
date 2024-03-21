@@ -10,9 +10,8 @@ class choice{
 int choice ::choose()
 {
     int choice;
-    cout << "1.  Register Room \n";
-    cout << "2. Customer Details \n";
-    cout << "3. Check List of Users \n";
+    cout << "1. Customer Details \n";
+    cout << "2. Check List of Users \n";
 
     cout << "Enter your choice: \n";
 

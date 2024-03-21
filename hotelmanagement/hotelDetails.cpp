@@ -1,9 +1,6 @@
 #include "choice.h"
 #include "customerDetail.h"
 
-#include<thread>
-#include<sqlite3.h>
-
 #include<map>
 #include<fstream>
 #include<iostream>
@@ -26,27 +23,27 @@ struct customerVariables {
 class hotelmanage{
     public:
 
-        map<string , customerVariables> customerData;
+        //map<string , customerVariables> customerData;
         //map<int, string> roomToCustomer;
 
         choice c;                       //object of choice header class of header file choice.h
         customerDetail customHeader;    //object of customerDetail class of header file customerDetail.h
         customerVariables customer;     //object of customerVariables structure
 
+        hotelmanage(){
+            cout << "Welcome to Hotel Management System\n";
+        }
+
         void choice();
         void checkList();
         void customerDetails();
         void registerRoom();
-
-        bool isAlreadyExist(string);
+        bool isAlreadyExist(string emailID);
 };
 
 void hotelmanage ::choice(){
     int choice = c.choose();
-    if(choice == 1){
-        registerRoom();
-    }
-    else if(choice == 2){
+    if(choice == 2){
         customerDetails();
     }
     else if(choice == 3){
@@ -65,6 +62,16 @@ void hotelmanage::customerDetails(){
     if (file.is_open()) {
         file << "\nAdding New Customer Details\n";
 
+        customer.emailID = customHeader.emailID();
+        bool alreadyExist =  isAlreadyExist(customer.emailID);
+        if(alreadyExist){
+            cout << "Email ID already exist\n";
+            return;
+        }
+        else{
+            file << "Email ID: " << customer.emailID << "\n\n";
+        }
+
         customer.Phone_No = customHeader.Phone_No();
         file << "Phone No: " << customer.Phone_No << "\n";
 
@@ -77,11 +84,7 @@ void hotelmanage::customerDetails(){
         customer.NoOfMembers = customHeader.NoOfMembers();
         file << "No of Members: " << customer.NoOfMembers << "\n\n";
 
-        customer.emailID = customHeader.emailID();
-        bool alreadyExist =  isAlreadyExist(customer.emailID);
-        file << "Email ID: " << customer.emailID << "\n\n";
-
-        customerData[customer.emailID] = customer;
+        //customerData[customer.emailID] = customer;
 
         file.close();
     } 
@@ -144,7 +147,7 @@ void hotelmanage ::registerRoom()
     }
 }
 
-bool isAlreadyExist(string emailID){
+bool hotelmanage:: isAlreadyExist(string emailID){
     fstream file;
     file.open("customer.txt", ios::in);
 
@@ -165,6 +168,7 @@ bool isAlreadyExist(string emailID){
 
 int main(){
     hotelmanage h;
+    h.choice();
 
     return 0;
 }
