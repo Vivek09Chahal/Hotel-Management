@@ -143,7 +143,7 @@ void hotelmanage ::registerRoom()
     }
 }
 
-bool isAlreadyExist(string emailID){
+bool hotelmanage::isAlreadyExist(string emailID){
     fstream file;
     file.open("customer.txt", ios::in);
 
