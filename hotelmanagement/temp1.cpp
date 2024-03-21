@@ -2,7 +2,6 @@
 #include "choice.h"
 
 #include<thread>
-#include<sqlite3.h>
 
 #include<fstream>
 #include<iostream>
