@@ -33,12 +33,12 @@ int main()
     }
 
     // Create table
-    std::string sql = "CREATE TABLE COMPANY("
-                      "ID INT PRIMARY KEY     NOT NULL,"
-                      "NAME           TEXT    NOT NULL,"
-                      "AGE            INT     NOT NULL,"
-                      "ADDRESS        CHAR(50),"
-                      "SALARY         REAL );";
+    string sql = "CREATE TABLE COMPANY("
+                "ID INT PRIMARY KEY     NOT NULL,"
+                "NAME           TEXT    NOT NULL,"
+                "AGE            INT     NOT NULL,"
+                "ADDRESS        CHAR(50),"
+                "SALARY         REAL );";
     rc = sqlite3_exec(db, sql.c_str(), callback, 0, &errMsg);
 
     if (rc != SQLITE_OK)
