@@ -117,14 +117,14 @@ void hotelManager::createTable()
 
 void hotelManager::enterData()
 {
-    if (rc != SQLITE_OK)
+    rc = sqlite3_open("HotelDB.db", &db);
+    if (rc)
     {
-        std::cerr << "SQL error: " << errMsg << std::endl;
-        sqlite3_free(errMsg);
+        std::cerr << "Can't open database: " << sqlite3_errmsg(db) << std::endl;
     }
     else
     {
-        std::cout << "Table created successfully" << std::endl;
+        std::cout << "Opened database successfully" << std::endl;
     }
 
     // Insert data
@@ -296,7 +296,6 @@ int main()
 {
 
     hotelManager h;
-    h.createTable();
     h.choice();
 
     return 0;
