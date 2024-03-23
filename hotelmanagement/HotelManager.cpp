@@ -56,6 +56,9 @@ public:
     void choice();
     void enterData();
     void displayData();
+    void updateData();
+    void deleteData();
+    void searchUser();
 };
 
 void hotelManager ::choice()
@@ -142,6 +145,8 @@ void hotelManager::enterData()
     {
         std::cout << "Records created successfully" << std::endl;
     }
+
+    choice();
 }
 
 void hotelManager::displayData()
@@ -162,7 +167,7 @@ void hotelManager::displayData()
     }
 
     // Select data
-    std::string sql = "SELECT * FROM CUSTOMER;";
+    std::string sql = "SELECT * FROM" + tableName;
     rc = sqlite3_exec(listOfUser, sql.c_str(), callback, 0, &errMsg);
 
     if (rc != SQLITE_OK)
