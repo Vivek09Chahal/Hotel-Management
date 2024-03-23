@@ -16,6 +16,7 @@ int choice ::choose()
     std::cout << "2. Display Data \n";
     std::cout << "3. Create new Table \n";
 
+    std::cout << "Enter your choice: ";
     std::cin >> choice;
     std::cin.ignore();
     return choice;

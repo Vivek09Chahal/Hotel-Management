@@ -97,5 +97,5 @@ int main()
     }
 
     sqlite3_close(db);
-    return;
+    return 0;
 }
