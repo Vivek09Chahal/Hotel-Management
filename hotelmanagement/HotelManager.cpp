@@ -26,7 +26,6 @@ struct customerVariables
 class hotelManager
 {
 public:
-
     std::string tableName;
 
     sqlite3 *db;
@@ -34,11 +33,24 @@ public:
     char *errMsg = 0;
     int rc;
 
+    hotelManager()
+    {
+        rc = sqlite3_open("HotelDB.db", &db);
+
+        if (rc)
+        {
+            std::cerr << "Can't open database: " << sqlite3_errmsg(db) << std::endl;
+        }
+        else
+        {
+            std::cout << "Opened database successfully" << std::endl;
+        }
+    }
+
     choice c;
     customerDetail customHeader;
     customerVariables customer;
 
-    void tableCreation();
     void createTable();
 
     void choice();
@@ -48,12 +60,6 @@ public:
     void deleteData();
     void searchUser();
 };
-
-void hotelManager::tableCreation(){
-    std::string tableName;
-    std::cout << "Enter the table name: ";
-    std::getline(std::cin, tableName);
-}
 
 void hotelManager ::choice()
 {
@@ -76,7 +82,7 @@ void hotelManager::createTable()
 {
 
     // Open Database
-    rc = sqlite3_open((tableName + ".db").c_str(), &db);
+    rc = sqlite3_open("HotelDB.db", &db);
     if (rc)
     {
         std::cerr << "Can't open database: " << sqlite3_errmsg(db) << std::endl;
@@ -87,15 +93,15 @@ void hotelManager::createTable()
     }
 
     // Create table
-    sql = "CREATE TABLE " + tableName + "("
-                                        "Phone_No INT PRIMARY KEY     NOT NULL,"
-                                        "Name           CHAR(24)    NOT NULL,"
-                                        "Address        CHAR(50),"
-                                        "NoOfMembers    INT     NOT NULL,"
-                                        "emailID        CHAR(25)    NOT NULL,"
-                                        "roomNo         INT     NOT NULL,"
-                                        "noOfRoomRegistered INT NOT NULL,"
-                                        "roomCharges    INT     NOT NULL);";
+    sql = "CREATE TABLE HotelData("
+                                    "Phone_No INT PRIMARY KEY     NOT NULL,"
+                                    "Name           CHAR(24)    NOT NULL,"
+                                    "Address        CHAR(50),"
+                                    "NoOfMembers    INT     NOT NULL,"
+                                    "emailID        CHAR(25)    NOT NULL,"
+                                    "roomNo         INT     NOT NULL,"
+                                    "noOfRoomRegistered INT NOT NULL,"
+                                    "roomCharges    INT     NOT NULL);";
     rc = sqlite3_exec(db, sql.c_str(), callback, 0, &errMsg);
 
     if (rc != SQLITE_OK)
@@ -131,7 +137,7 @@ void hotelManager::enterData()
     customer.noOfRoomRegistered = 0;
     customer.roomCharges = 0;
 
-    sql = "INSERT INTO" + tableName + "(Phone_No, Name, Address, NoOfMembers, emailID, roomNo, noOfRoomRegistered, roomCharges) VALUES (" + std::to_string(customer.Phone_No) + ", '" + customer.Name + "', '" + customer.Address + "', " + std::to_string(customer.NoOfMembers) + ", '" + customer.emailID + "', " + std::to_string(customer.roomNo) + ", " + std::to_string(customer.noOfRoomRegistered) + ", " + std::to_string(customer.roomCharges) + ");";
+    sql = "INSERT INTO HotelData (Phone_No, Name, Address, NoOfMembers, emailID, roomNo, noOfRoomRegistered, roomCharges) VALUES (" + std::to_string(customer.Phone_No) + ", '" + customer.Name + "', '" + customer.Address + "', " + std::to_string(customer.NoOfMembers) + ", '" + customer.emailID + "', " + std::to_string(customer.roomNo) + ", " + std::to_string(customer.noOfRoomRegistered) + ", " + std::to_string(customer.roomCharges) + ");";
 
     rc = sqlite3_exec(db, sql.c_str(), callback, 0, &errMsg);
 
@@ -150,12 +156,8 @@ void hotelManager::enterData()
 
 void hotelManager::displayData()
 {
-    std::string tableName;
-    std::cout << "Enter the table name: ";
-    std::getline(std::cin, tableName);
-
     // Open Database
-    rc = sqlite3_open((tableName + ".db").c_str(), &db);
+    rc = sqlite3_open("HotelDB.db", &db);
     if (rc)
     {
         std::cerr << "Can't open database: " << sqlite3_errmsg(db) << std::endl;
@@ -166,7 +168,7 @@ void hotelManager::displayData()
     }
 
     // Select data
-    std::string sql = "SELECT * FROM" + tableName + ";";
+    std::string sql = "SELECT * FROM HotelData;";
     rc = sqlite3_exec(db, sql.c_str(), callback, 0, &errMsg);
 
     if (rc != SQLITE_OK)
@@ -182,16 +184,12 @@ void hotelManager::displayData()
 
 void hotelManager::updateData()
 {
-    std::string tableName;
-    std::cout << "Enter the table name: ";
-    std::getline(std::cin, tableName);
-
     std::string condition;
     std::cout << "Enter the condition for the WHERE clause (e.g., 'Age > 25'): ";
     std::getline(std::cin, condition);
 
     // Open Database
-    rc = sqlite3_open((tableName + ".db").c_str(), &db);
+    rc = sqlite3_open("HotelDB.db", &db);
     if (rc)
     {
         std::cerr << "Can't open database: " << sqlite3_errmsg(db) << std::endl;
@@ -202,7 +200,7 @@ void hotelManager::updateData()
     }
 
     // Select data
-    std::string sql = "SELECT * FROM " + tableName + " WHERE " + condition + ";";
+    std::string sql = "SELECT * FROM HotelData WHERE " + condition + ";";
     rc = sqlite3_exec(db, sql.c_str(), callback, 0, &errMsg);
 
     if (rc != SQLITE_OK)
@@ -218,10 +216,6 @@ void hotelManager::updateData()
 
 void hotelManager::updateData()
 {
-    std::string tableName;
-    std::cout << "Enter the table name: ";
-    std::getline(std::cin, tableName);
-
     std::string condition;
     std::cout << "Enter the condition for the WHERE clause (e.g., 'Age > 25'): ";
     std::getline(std::cin, condition);
@@ -231,7 +225,7 @@ void hotelManager::updateData()
     std::getline(std::cin, updateStatement);
 
     // Open Database
-    rc = sqlite3_open((tableName + ".db").c_str(), &db);
+    rc = sqlite3_open("HotelDB.db", &db);
     if (rc)
     {
         std::cerr << "Can't open database: " << sqlite3_errmsg(db) << std::endl;
@@ -242,7 +236,7 @@ void hotelManager::updateData()
     }
 
     // Update data
-    std::string sql = "UPDATE " + tableName + " SET " + updateStatement + " WHERE " + condition + ";";
+    std::string sql = "UPDATE HotelData SET " + updateStatement + " WHERE " + condition + ";";
     rc = sqlite3_exec(db, sql.c_str(), callback, 0, &errMsg);
 
     if (rc != SQLITE_OK)
@@ -258,16 +252,12 @@ void hotelManager::updateData()
 
 void hotelManager::deleteData()
 {
-    std::string tableName;
-    std::cout << "Enter the table name: ";
-    std::getline(std::cin, tableName);
-
     std::string condition;
     std::cout << "Enter the condition for the WHERE clause (e.g., 'Age > 25'): ";
     std::getline(std::cin, condition);
 
     // Open Database
-    rc = sqlite3_open((tableName + ".db").c_str(), &db);
+    rc = sqlite3_open("HotelDB.db", &db);
     if (rc)
     {
         std::cerr << "Can't open database: " << sqlite3_errmsg(db) << std::endl;
@@ -278,7 +268,7 @@ void hotelManager::deleteData()
     }
 
     // Delete data
-    std::string sql = "DELETE FROM " + tableName + " WHERE " + condition + ";";
+    std::string sql = "DELETE FROM HotelData WHERE " + condition + ";";
     rc = sqlite3_exec(db, sql.c_str(), callback, 0, &errMsg);
 
     if (rc != SQLITE_OK)
@@ -292,8 +282,10 @@ void hotelManager::deleteData()
     }
 }
 
-static int callback(void *NotUsed, int argc, char **argv, char **azColName) {
-    for(int i = 0; i < argc; i++) {
+static int callback(void *NotUsed, int argc, char **argv, char **azColName)
+{
+    for (int i = 0; i < argc; i++)
+    {
         printf("%s = %s\n", azColName[i], argv[i] ? argv[i] : "NULL");
     }
     printf("\n");
