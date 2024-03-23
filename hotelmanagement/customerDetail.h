@@ -1,60 +1,54 @@
-#include<iostream>
-#include<fstream>
-#include<string>
-#include<cstdlib>
-#include<cstring>
-#include<cstdio>
-#include<iomanip>
-using namespace std;
+#include <iostream>
+#include <string>
 
-class customerDetail{
-    public:
-
-        long long int Phone_No();
-        string Name();
-        string Address();
-        int NoOfMembers();
-        string emailID();
+class customerDetail
+{
+public:
+    long long int Phone_No();
+    std::string Name();
+    std::string Address();
+    int NoOfMembers();
+    std::string emailID();
 };
 
 long long int customerDetail ::Phone_No()
 {
     long long int Phone_No;
-    cout << "Enter Phone No: \n";
-    cin >> Phone_No;
-    cin.ignore();
+    std::cout << "Enter Phone No: \n";
+    std::cin >> Phone_No;
+    std::cin.ignore();
     return Phone_No;
 }
 
-string customerDetail ::Name()
+std::string customerDetail ::Name()
 {
-    string Name;
-    cout << "Enter Name: \n";
-    getline(cin, Name);
+    std::string Name;
+    std::cout << "Enter Name: \n";
+    std::getline(std::cin, Name);
     return Name;
 }
 
-string customerDetail ::Address()
+std::string customerDetail ::Address()
 {
-    string Address;
-    cout << "Enter Address: \n";
-    getline(cin, Address);
+    std::string Address;
+    std::cout << "Enter Address: \n";
+    std::getline(std::cin, Address);
     return Address;
 }
 
-string customerDetail ::emailID()
+std::string customerDetail ::emailID()
 {
-    string emailID;
-    cout << "Enter Email ID: \n";
-    getline(cin, emailID);
+    std::string emailID;
+    std::cout << "Enter Email ID: \n";
+    std::getline(std::cin, emailID);
     return emailID;
 }
 
 int customerDetail ::NoOfMembers()
 {
     int NoOfMembers;
-    cout << "Enter No of Members: \n";
-    cin >> NoOfMembers;
-    cin.ignore();
+    std::cout << "Enter No of Members: \n";
+    std::cin >> NoOfMembers;
+    std::cin.ignore();
     return NoOfMembers;
 }

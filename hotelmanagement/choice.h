@@ -1,21 +1,22 @@
-#include<iostream>
-#include<fstream>
-using namespace std;
+#include <iostream>
+#include <fstream>
 
-class choice{
-    public:
-        int choose();
+class choice
+{
+public:
+    int choose();
 };
 
 int choice ::choose()
 {
     int choice;
-    cout << "1. Customer Details \n";
-    cout << "2. Check List of Users \n";
+    std::cout << "Welcome to Hotel Management System\n";
+    std::cout << "Choose from the following options: \n";
+    std::cout << "1. Enter Data \n";
+    std::cout << "2. Display Data \n";
+    std::cout << "3. Create new Table \n";
 
-    cout << "Enter your choice: \n";
-
-    cin >> choice;
-    cin.ignore();
+    std::cin >> choice;
+    std::cin.ignore();
     return choice;
 }
