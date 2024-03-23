@@ -72,6 +72,14 @@ void hotelManager ::choice()
     {
         displayData();
     }
+    else if (choice == 3)
+    {
+        updateData();
+    }
+    else if (choice == 4)
+    {
+        deleteData();
+    }
     else
     {
         std::cout << "Invalid Choice\n";
@@ -103,16 +111,6 @@ void hotelManager::createTable()
                                     "noOfRoomRegistered INT NOT NULL,"
                                     "roomCharges    INT     NOT NULL);";
     rc = sqlite3_exec(db, sql.c_str(), callback, 0, &errMsg);
-
-    if (rc != SQLITE_OK)
-    {
-        std::cerr << "SQL error: " << errMsg << std::endl;
-        sqlite3_free(errMsg);
-    }
-    else
-    {
-        std::cout << "Table created successfully" << std::endl;
-    }
 }
 
 void hotelManager::enterData()
@@ -201,42 +199,6 @@ void hotelManager::updateData()
 
     // Select data
     std::string sql = "SELECT * FROM HotelData WHERE " + condition + ";";
-    rc = sqlite3_exec(db, sql.c_str(), callback, 0, &errMsg);
-
-    if (rc != SQLITE_OK)
-    {
-        std::cerr << "SQL error: " << errMsg << std::endl;
-        sqlite3_free(errMsg);
-    }
-    else
-    {
-        std::cout << "Operation done successfully" << std::endl;
-    }
-}
-
-void hotelManager::updateData()
-{
-    std::string condition;
-    std::cout << "Enter the condition for the WHERE clause (e.g., 'Age > 25'): ";
-    std::getline(std::cin, condition);
-
-    std::string updateStatement;
-    std::cout << "Enter the update statement (e.g., 'Age = 30'): ";
-    std::getline(std::cin, updateStatement);
-
-    // Open Database
-    rc = sqlite3_open("HotelDB.db", &db);
-    if (rc)
-    {
-        std::cerr << "Can't open database: " << sqlite3_errmsg(db) << std::endl;
-    }
-    else
-    {
-        std::cout << "Opened database successfully" << std::endl;
-    }
-
-    // Update data
-    std::string sql = "UPDATE HotelData SET " + updateStatement + " WHERE " + condition + ";";
     rc = sqlite3_exec(db, sql.c_str(), callback, 0, &errMsg);
 
     if (rc != SQLITE_OK)
