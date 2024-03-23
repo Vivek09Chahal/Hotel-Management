@@ -14,7 +14,6 @@ int choice ::choose()
     std::cout << "Choose from the following options: \n";
     std::cout << "1. Enter Data \n";
     std::cout << "2. Display Data \n";
-    std::cout << "3. Create new Table \n";
 
     std::cout << "Enter your choice: ";
     std::cin >> choice;

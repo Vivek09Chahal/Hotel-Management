@@ -66,10 +66,6 @@ void hotelManager ::choice()
     {
         displayData();
     }
-    else if (choice == 3)
-    {
-        createTable();
-    }
     else
     {
         std::cout << "Invalid Choice\n";
@@ -115,6 +111,15 @@ void hotelManager::createTable()
 
 void hotelManager::enterData()
 {
+    if (rc != SQLITE_OK)
+    {
+        std::cerr << "SQL error: " << errMsg << std::endl;
+        sqlite3_free(errMsg);
+    }
+    else
+    {
+        std::cout << "Table created successfully" << std::endl;
+    }
 
     // Insert data
     customer.Phone_No = customHeader.Phone_No();
@@ -299,6 +304,7 @@ int main()
 {
 
     hotelManager h;
+    h.createTable();
     h.choice();
 
     return 0;
