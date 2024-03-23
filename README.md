@@ -1,5 +1,15 @@
 # Hotel-Management
-A program which helps you to manage rooms and all details of incoming and outgoing customers.
 
-In this program we used own build C++ header files
-sql command to access, update, delet and insert data with library og "sqlite3.h" library and  
+Program containg the .vscode file with configuration of clang compiler. The one who will try need to modify configuration.
+
+This is the program which helps you to manage rooms and all details of incoming and outgoing customers.
+
+You can create new database
+you can update, delete, insert
+and display individual as well as a single user detail.
+
+Used 6 function
+Taking choice and customer details input from user.
+
+In this program we used own build C++  header(.h) files
+sql command to access, update, delet and insert data with library og "sqlite3.h" library. 
