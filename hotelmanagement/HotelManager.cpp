@@ -16,11 +16,7 @@ struct customerVariables
     std::string emailID;
 
     int roomNo;
-    int totalRooms;
-    int bookedRooms;
-    int availableRooms;
     int roomCharges;
-    int noOfRoomRegistered;
 };
 
 class hotelManager
@@ -108,7 +104,6 @@ void hotelManager::createTable()
                                     "NoOfMembers    INT     NOT NULL,"
                                     "emailID        CHAR(25)    NOT NULL,"
                                     "roomNo         INT     NOT NULL,"
-                                    "noOfRoomRegistered INT NOT NULL,"
                                     "roomCharges    INT     NOT NULL);";
     rc = sqlite3_exec(db, sql.c_str(), callback, 0, &errMsg);
 }
@@ -131,11 +126,10 @@ void hotelManager::enterData()
     customer.Address = customHeader.Address();
     customer.NoOfMembers = customHeader.NoOfMembers();
     customer.emailID = customHeader.emailID();
-    customer.roomNo = 0;
-    customer.noOfRoomRegistered = 0;
-    customer.roomCharges = 0;
+    customer.roomNo = customHeader.roomNo();
+    customer.roomCharges = customHeader.roomCharges();
 
-    sql = "INSERT INTO HotelData (Phone_No, Name, Address, NoOfMembers, emailID, roomNo, noOfRoomRegistered, roomCharges) VALUES (" + std::to_string(customer.Phone_No) + ", '" + customer.Name + "', '" + customer.Address + "', " + std::to_string(customer.NoOfMembers) + ", '" + customer.emailID + "', " + std::to_string(customer.roomNo) + ", " + std::to_string(customer.noOfRoomRegistered) + ", " + std::to_string(customer.roomCharges) + ");";
+    sql = "INSERT INTO HotelData (Phone_No, Name, Address, NoOfMembers, emailID, roomNo, noOfRoomRegistered, roomCharges) VALUES (" + std::to_string(customer.Phone_No) + ", '" + customer.Name + "', '" + customer.Address + "', " + std::to_string(customer.NoOfMembers) + ", '" + customer.emailID + "', " + std::to_string(customer.roomNo) + ", " + std::to_string(customer.roomCharges) + ");";
 
     rc = sqlite3_exec(db, sql.c_str(), callback, 0, &errMsg);
 

@@ -9,6 +9,8 @@ public:
     std::string Address();
     int NoOfMembers();
     std::string emailID();
+    int roomNo();
+    int roomCharges();
 };
 
 long long int customerDetail ::Phone_No()
@@ -51,4 +53,22 @@ int customerDetail ::NoOfMembers()
     std::cin >> NoOfMembers;
     std::cin.ignore();
     return NoOfMembers;
+}
+
+int customerDetail ::roomNo()
+{
+    int roomNo;
+    std::cout << "Enter Room No: \n";
+    std::cin >> roomNo;
+    std::cin.ignore();
+    return roomNo;
+}
+
+int customerDetail ::roomCharges()
+{
+    int roomCharges;
+    std::cout << "Enter Room Charges: \n";
+    std::cin >> roomCharges;
+    std::cin.ignore();
+    return roomCharges;
 }
