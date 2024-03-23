@@ -5,17 +5,6 @@
 #include <iostream>
 #include <sqlite3.h>
 
-static int callback(void *NotUsed, int argc, char **argv, char **azColName)
-{
-    int i;
-    for (i = 0; i < argc; i++)
-    {
-        std::cout << azColName[i] << " = " << (argv[i] ? argv[i] : "NULL") << std::endl;
-    }
-    std::cout << std::endl;
-    return 0;
-}
-
 struct customerVariables
 {
     long long int Phone_No;
@@ -179,6 +168,17 @@ void hotelManager::displayData()
     {
         std::cout << "Operation done successfully" << std::endl;
     }
+}
+
+static int callback(void *NotUsed, int argc, char **argv, char **azColName)
+{
+    int i;
+    for (i = 0; i < argc; i++)
+    {
+        std::cout << azColName[i] << " = " << (argv[i] ? argv[i] : "NULL") << std::endl;
+    }
+    std::cout << std::endl;
+    return 0;
 }
 
 int main()
