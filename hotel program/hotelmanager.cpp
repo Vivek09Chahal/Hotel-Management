@@ -105,6 +105,8 @@ void hotelManager::createTable()
                                     "roomNo         INT     NOT NULL,"
                                     "roomCharges    INT     NOT NULL);";
     rc = sqlite3_exec(db, sql.c_str(), callback, 0, &errMsg);
+
+    sqlite3_close(db);
 }
 
 void hotelManager::enterData()
@@ -143,6 +145,7 @@ void hotelManager::enterData()
     }
 
     choice();
+    sqlite3_close(db);
 }
 
 void hotelManager::displayData()
@@ -171,6 +174,9 @@ void hotelManager::displayData()
     {
         std::cout << "Operation done successfully" << std::endl;
     }
+    
+    sqlite3_close(db);
+    choice();
 }
 
 void hotelManager::updateData()
@@ -203,6 +209,9 @@ void hotelManager::updateData()
     {
         std::cout << "Operation done successfully" << std::endl;
     }
+
+    sqlite3_close(db);
+    choice();
 }
 
 void hotelManager::deleteData()
@@ -235,6 +244,9 @@ void hotelManager::deleteData()
     {
         std::cout << "Operation done successfully" << std::endl;
     }
+
+    sqlite3_close(db);
+    choice();
 }
 
 static int callback(void *NotUsed, int argc, char **argv, char **azColName)
