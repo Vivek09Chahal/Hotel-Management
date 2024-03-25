@@ -11,6 +11,8 @@ public:
     std::string emailID();
     int roomNo();
     int roomCharges();
+    int dateInput();
+    int monthInput();
 };
 
 long long int customerDetail ::Phone_No()
@@ -71,4 +73,18 @@ int customerDetail ::roomCharges()
     std::cin >> roomCharges;
     std::cin.ignore();
     return roomCharges;
+}
+
+int customerDetail ::dateInput(){
+    int date;
+    std::cout << "Enter date of room registration";
+    std::cin >> date;
+    return date;
+}
+
+int customerDetail ::monthInput(){
+    int month;
+    std::cout << "Enter the month of registration";
+    std::cin >> month;
+    return month;
 }
