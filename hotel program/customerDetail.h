@@ -13,7 +13,7 @@ public:
     int roomCharges();
     int dateInput();
     int monthInput();
-};
+}customHeader;
 
 long long int customerDetail ::Phone_No()
 {

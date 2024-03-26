@@ -4,7 +4,7 @@ class choice
 {
 public:
     int choose();
-};
+}c;
 
 int choice ::choose()
 {

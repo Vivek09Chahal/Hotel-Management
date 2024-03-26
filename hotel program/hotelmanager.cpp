@@ -20,7 +20,7 @@ struct customerVariables
 
     unsigned int date : 2;
     unsigned int month : 2;
-};
+}customer;
 
 class hotelManager
 {
@@ -45,10 +45,6 @@ public:
             std::cout << "Opened database successfully" << std::endl;
         }
     }
-
-    choice c;
-    customerDetail customHeader;
-    customerVariables customer;
 
     void createTable();
 
