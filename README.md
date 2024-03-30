@@ -12,13 +12,11 @@ you can update, delete, insert
 and display individual as well as a single user detail.
 ```
 
+_In this program we used own build C++  header(.h) files._
+_Using `BitField` for month and date as they take less then the default storage._
+
 - Used 6 function
 - Taking choice and customer details input from user.
-
-_Using BitField for month and date as they take less then the default storage._
-
-_In this program we used own build C++  header(.h) files._
-
 - sql command to access, update, delet and insert data with library of "sqlite3.h" library. 
 
 
