@@ -1,16 +1,12 @@
 # Hotel-Management
 
-```
 Program containg the .vscode file with configuration of clang compiler. The one who will try need to modify configuration.
-```
 
 #### This is the program which helps you to manage rooms and all details of incoming and outgoing customers.
 
-```
 You can create new database
 you can update, delete, insert
 and display individual as well as a single user detail.
-```
 
 _In this program we used own build C++  header(.h) files._
 _Using `BitField` for month and date as they take less then the default storage._
